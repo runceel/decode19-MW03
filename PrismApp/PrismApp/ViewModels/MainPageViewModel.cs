@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
+using PrismApp.UseCase;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace PrismApp.ViewModels
         }
 
         private DelegateCommand _toUpperCommand;
+        private readonly IToUpperUseCase _toUpperUseCase;
+
         public DelegateCommand ToUpperCommand =>
             _toUpperCommand ?? (_toUpperCommand = new DelegateCommand(ExecuteToUpperCommand, CanExecuteToUpperCommand)
                 .ObservesProperty(() => Input)
@@ -40,8 +43,9 @@ namespace PrismApp.ViewModels
             IsBusy = true;
             try
             {
-                await Task.Delay(3000);
-                Output = Input.ToUpper();
+                _toUpperUseCase.Input = Input;
+                await _toUpperUseCase.ToUpperAsync();
+                Output = _toUpperUseCase.Output;
             }
             finally
             {
@@ -51,10 +55,11 @@ namespace PrismApp.ViewModels
 
         private bool CanExecuteToUpperCommand() => !string.IsNullOrEmpty(Input) && !IsBusy;
 
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService, IToUpperUseCase toUpperUseCase)
             : base(navigationService)
         {
             Title = "Main Page";
+            _toUpperUseCase = toUpperUseCase;
         }
     }
 }
