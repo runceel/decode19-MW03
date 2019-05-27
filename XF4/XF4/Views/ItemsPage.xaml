@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XF4.Views.ItemsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="AddItem_Clicked" Text="Add" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <CollectionView
+            x:Name="ItemsListView"
+            SelectionChanged="ItemsListView_SelectionChanged"
+            SelectionMode="Single"
+            VerticalOptions="FillAndExpand">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="2" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>First Item</x:String>
+                    <x:String>Second Item</x:String>
+                    <x:String>Third Item</x:String>
+                    <x:String>Forth Item</x:String>
+                    <x:String>Fifth Item</x:String>
+                    <x:String>Sixth Item</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label
+                            Text="{Binding .}"
+                            FontSize="16"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemTextStyle}" />
+                        <Label
+                            Text="Item description"
+                            FontSize="13"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+
+</ContentPage>
