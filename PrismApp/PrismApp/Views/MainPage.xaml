@@ -10,9 +10,12 @@
              Title="{Binding Title}">
 
     <StackLayout>
-        <Label Text="Hello world from Xamarin.Forms" 
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+        <Entry Text="{Binding TargetEmployeeId, Mode=TwoWay}" />
+        <Button Text="Lookup" Command="{Binding LookupEmployeeCommand}" />
+        <Label Text="{Binding EmployeeLookupUseCase.Employee.Name}" />
+        <Button Text="Next"
+                Command="{xf:NavigateTo NextPage}"
+                xf:Navigation.CanNavigate="{Binding CanNavigateToNextPage}"/>
     </StackLayout>
 
 </ContentPage>
