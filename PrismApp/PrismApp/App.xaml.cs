@@ -35,6 +35,7 @@ namespace PrismApp
 
             containerRegistry.RegisterSingleton<IToUpperRepository, ToUpperRepository>();
             containerRegistry.RegisterSingleton<IToUpperUseCase, ToUpperUseCase>();
+            containerRegistry.RegisterForNavigation<NextPage, NextPageViewModel>();
         }
     }
 }

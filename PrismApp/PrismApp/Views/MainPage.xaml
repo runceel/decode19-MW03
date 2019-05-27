@@ -5,14 +5,18 @@
              xmlns:xf="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:PrismApp.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
              x:Class="PrismApp.Views.MainPage"
              mc:Ignorable="d"
              Title="{Binding Title}">
 
     <StackLayout>
-        <Entry d:Text="input" Text="{Binding Input, Mode=TwoWay}"/>
+        <Entry x:Name="input" d:Text="input" Text="{Binding Input, Mode=TwoWay}"/>
         <Button Text="ToUpper" Command="{Binding ToUpperCommand}" />
         <Label d:Text="INPUT" Text="{Binding Output}" />
+        <Button Text="Go to Next"
+                Command="{prism:NavigateTo NextPage}" 
+                CommandParameter="{Binding Text, Source={Reference input}}"/>
     </StackLayout>
 
 </ContentPage>
