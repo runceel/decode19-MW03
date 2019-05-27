@@ -10,9 +10,9 @@
              Title="{Binding Title}">
 
     <StackLayout>
-        <Label Text="Hello world from Xamarin.Forms" 
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+        <Entry d:Text="input" Text="{Binding Input, Mode=TwoWay}"/>
+        <Button Text="ToUpper" Command="{Binding ToUpperCommand}" />
+        <Label d:Text="INPUT" Text="{Binding Output}" />
     </StackLayout>
 
 </ContentPage>
