@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using Prism.Commands;
 using Prism.Navigation;
+using PrismApp.Entities;
 using PrismApp.UseCases;
 
 namespace PrismApp.ViewModels
@@ -17,18 +19,33 @@ namespace PrismApp.ViewModels
             return int.TryParse(TargetEmployeeId, out var _);
         }
 
-        public async void ExecuteLookupEmployeeCommand()
+        private async void ExecuteLookupEmployeeCommand()
         {
             EmployeeLookupUseCase.TargetId = int.Parse(TargetEmployeeId);
             await EmployeeLookupUseCase.LookupAsync();
+            Employee = EmployeeLookupUseCase.Employee;
         }
+
+        private DelegateCommand _navigateToNextPageCommand;
+        public DelegateCommand NavigateToNextPageCommand =>
+            _navigateToNextPageCommand ?? (_navigateToNextPageCommand = new DelegateCommand(ExecuteNavigateToNextPageCommand, CanExecuteNavigateToNextPageCommand)
+                .ObservesProperty(() => Employee));
+
+        private async void ExecuteNavigateToNextPageCommand()
+        {
+            await NavigationService.NavigateAsync("NextPage", new NavigationParameters
+            {
+                { "id", Employee.Id },
+            });
+        }
+
+        private bool CanExecuteNavigateToNextPageCommand() => Employee != null;
 
         public MainPageViewModel(INavigationService navigationService, IEmployeeLookupUseCase employeeLookupUseCase)
             : base(navigationService)
         {
             Title = "Main Page";
             EmployeeLookupUseCase = employeeLookupUseCase;
-            CanNavigateToNextPage = EmployeeLookupUseCase.Employee != null;
         }
 
         public IEmployeeLookupUseCase EmployeeLookupUseCase { get; }
@@ -40,11 +57,11 @@ namespace PrismApp.ViewModels
             set { SetProperty(ref _targetEmployeeId, value); }
         }
 
-        private bool _canNavigateToNextPage;
-        public bool CanNavigateToNextPage
+        private Employee _employee;
+        public Employee Employee
         {
-            get { return _canNavigateToNextPage; }
-            set { SetProperty(ref _canNavigateToNextPage, value); }
+            get { return _employee; }
+            private set { SetProperty(ref _employee, value); }
         }
     }
 }

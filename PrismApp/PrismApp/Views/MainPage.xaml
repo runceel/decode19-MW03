@@ -1,21 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:xf="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
-             xmlns:viewModels="clr-namespace:PrismApp.ViewModels"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             x:Class="PrismApp.Views.MainPage"
-             mc:Ignorable="d"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="PrismApp.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:PrismApp.ViewModels"
+    xmlns:xf="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
 
     <StackLayout>
         <Entry Text="{Binding TargetEmployeeId, Mode=TwoWay}" />
-        <Button Text="Lookup" Command="{Binding LookupEmployeeCommand}" />
+        <Button Command="{Binding LookupEmployeeCommand}" Text="Lookup" />
         <Label Text="{Binding EmployeeLookupUseCase.Employee.Name}" />
-        <Button Text="Next"
-                Command="{xf:NavigateTo NextPage}"
-                xf:Navigation.CanNavigate="{Binding CanNavigateToNextPage}"/>
+        <Button Text="Next" Command="{Binding NavigateToNextPageCommand}" />
     </StackLayout>
 
 </ContentPage>

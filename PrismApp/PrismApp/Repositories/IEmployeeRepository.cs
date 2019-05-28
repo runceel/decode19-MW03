@@ -16,8 +16,14 @@ namespace PrismApp.Repositories
         public async Task<Employee> GetEmployeeById(int id)
         {
             await Task.Delay(1000);
+            if (id == 0)
+            {
+                return null;
+            }
+
             return new Employee
             {
+                Id = id,
                 Name = $"Tanaka Taro {id}",
             };
         }

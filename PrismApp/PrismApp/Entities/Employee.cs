@@ -7,6 +7,13 @@ namespace PrismApp.Entities
 {
     public class Employee : BindableBase
     {
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            set { SetProperty(ref _id, value); }
+        }
+
         private string _name;
         public string Name
         {
